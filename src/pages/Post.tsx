@@ -66,7 +66,7 @@ const Post = () => {
   const [post, setPost] = useState<IPost | null>(null);
 
   const fetchPostById = async () => {
-    const { data } = await getPostById(postId);
+    const { data } = await getPostById(postId ?? '');
     const { post } = data;
     setPost(post);
   };
@@ -87,7 +87,7 @@ const Post = () => {
   };
 
   const requestDeletePostById = async () => {
-    await deletePostById( postId );
+    await deletePostById(postId ?? '');
     navigate('/');
   };
   // todo (4) post 컴포넌트 작성
