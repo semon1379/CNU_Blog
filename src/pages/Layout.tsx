@@ -62,7 +62,7 @@ const Layout = () => {
           <ProfilePicture src="https://t1.daumcdn.net/cfile/tistory/99107A335C1EED5005" alt="프로필 사진" />
         </div>
         <div>
-          <Name>제시</Name>
+          <Name>semon</Name>
           <Description>브롤스타즈~</Description>
         </div>
       </Profile>
