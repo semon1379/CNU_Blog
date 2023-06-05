@@ -60,13 +60,14 @@ const Text = styled.p`
 `;
 
 const Post = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const { postId } = params;
   const [post, setPost] = useState<IPost | null>(null);
 
-  const fetchPostById = async() =>{
-    const {data} = await getPostById(postId);
-    const {post} = data;
+  const fetchPostById = async () => {
+    const { data } = await getPostById(postId);
+    const { post } = data;
     setPost(post);
   };
 
@@ -75,18 +76,18 @@ const Post = () => {
   }, []);
 
   if (!post) {
-    return <NotFound/>;
+    return <NotFound />;
   }
 
   const clickDeleteButton = () => {
     const result = window.confirm('정말로 게시글을 삭제하시겠습니까?');
-    if(result) {
+    if (result) {
       requestDeletePostById();
     }
   };
 
   const requestDeletePostById = async () => {
-    await deletePostById(postId);
+    await deletePostById( postId );
     navigate('/');
   };
   // todo (4) post 컴포넌트 작성
@@ -99,7 +100,7 @@ const Post = () => {
             <div>n분전</div>
           </Info>
           <div>
-            <Link to="/write" state={{postId}} style={{marginRight:10}}>
+            <Link to="/write" state={{ postId }} style={{ marginRight: 10 }}>
               <TextButton>수정</TextButton>
             </Link>
             <TextButton onClick={clickDeleteButton}>삭제</TextButton>
@@ -112,7 +113,7 @@ const Post = () => {
         )}
       </div>
       <ContentsArea>
-        {post?.contents?.split('\n').map((text, index)=>(
+        {post?.contents?.split('\n').map((text, index) => (
           <Text key={index}>{text}</Text>
         ))}
       </ContentsArea>

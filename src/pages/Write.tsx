@@ -85,78 +85,78 @@ const SaveButton = styled.button`
 `;
 
 const Write = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [tag, setTag] = useState<TAG>(TAG.REACT);
-    const tagList = Object.keys(TAG);
-    const {state} = useLocation();
-    const isEdit = state?.postId;
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [tag, setTag] = useState<TAG>(TAG.REACT);
+  const tagList = Object.keys(TAG);
+  const { state } = useLocation();
+  const isEdit = state?.postId;
 
-    const fetchPostById = async (postId: string) => {
-        const{data} = await  getPostById(postId);
-        const{post} = data;
-        setTitle(post.title);
-        setContent(post.contents);
-        setTag(post.tag);
-    };
+  const fetchPostById = async (postId: string) => {
+    const { data } = await getPostById( postId );
+    const { post } = data;
+    setTitle(post.title);
+    setContent(post.contents);
+    setTag(post.tag);
+  };
 
-    useEffect(() => {
-        if (isEdit) {
-            fetchPostById(state.postId);
-        }
-    }, []);
-    const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value);
-    };
-    const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setContent(event.target.value);
-    };
-
-    const handleChangeTag = (event: ChangeEvent<HTMLSelectElement>) => {
-        setTag(event.target.value as TAG);
-    };
-
-    const navigate = useNavigate();
-
-    const requestCreatePost = async () => {
-        await createPost(title, content, tag);
-    };
-
-    const requestUpdatePost = async () => {
-        await updatePostById(state.postId, title, content, tag);
-    };
-
-    const clickConfirm = () => {
-        if (!title || !content) {
-            alert('빈 값이 있습니다.');
-            return;
-        }
+  useEffect(() => {
     if (isEdit) {
-        requestUpdatePost();
-    }else {
-        requestCreatePost();
+      fetchPostById(state.postId);
     }
+  }, []);
+  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
+  };
+
+  const handleChangeTag = (event: ChangeEvent<HTMLSelectElement>) => {
+    setTag(event.target.value as TAG);
+  };
+
+  const navigate = useNavigate();
+
+  const requestCreatePost = async () => {
+    await createPost(title, content, tag);
+  };
+  const requestUpdatePost = async () => {
+    await updatePostById(state.postId, title, content, tag);
+  };
+
+  const clickConfirm = () => {
+    if (!title || !content) {
+      alert('빈 값이 있습니다.');
+      return;
+    }
+    if (isEdit) {
+      requestUpdatePost();
+    } else {
+      requestCreatePost().then(() =>{
         navigate('/');
-    };
+      });
+    }
+  };
   // todo (5) 게시글 작성 페이지 만들기
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       나는 글쓰기
       <div style={{ height: 'calc(100% - 4rem)', paddingBottom: '4rem' }}>
-          <TitleInput placeholder="제목을 입력하세요" value={title} onChange={handleChangeTitle}/>
-          <TagSelect value={tag} onChange={handleChangeTag} placeholder={'태그를 선택하세요'}>
-              {tagList.map(tag => {
-                  return <option key={tag}>(tag)</option>;
-              })}
-          </TagSelect>
-          <Editor value={content} onChange={handleChangeContent} placeholder="내용을 입력하세요"/>
+        <TitleInput placeholder="제목을 입력하세요" value={title} onChange={handleChangeTitle} />
+        <TagSelect value={tag} onChange={handleChangeTag} placeholder={'태그를 선택하세요'}>
+          {tagList.map(tag => {
+            return <option key={tag}>(tag)</option>;
+          })}
+        </TagSelect>
+        <Editor value={content} onChange={handleChangeContent} placeholder="내용을 입력하세요" />
       </div>
-        <BottomSheet>
-            <Link to="/">
-                <ExitButton>나가기</ExitButton>
-            </Link>
-            <SaveButton onClick={clickConfirm}>저장하기</SaveButton>
-        </BottomSheet>
+      <BottomSheet>
+        <Link to="/">
+          <ExitButton>나가기</ExitButton>
+        </Link>
+        <SaveButton onClick={clickConfirm}>저장하기</SaveButton>
+      </BottomSheet>
     </div>
   );
 };
