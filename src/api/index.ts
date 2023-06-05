@@ -22,7 +22,7 @@ export const createPost = (title: string, contents: string, tag: string) => {
   });
 };
 
-export const getPostById = (id: number) => {
+export const getPostById = (id: string) => {
   return instance.get(`/post/${id}`);
 };
 
