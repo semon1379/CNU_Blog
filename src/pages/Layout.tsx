@@ -62,7 +62,7 @@ const Layout = () => {
           <ProfilePicture src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.18169-9/17991980_412447279124659_4931024617863790608_n.png?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=5x16H9ck1QMAX8SEtOV&_nc_ht=scontent-ssn1-1.xx&oh=00_AfD5TjutyBqwlqS5fsrQ3ioUc-tAicBh4Olbpjjf1L2pXw&oe=64ABAF95" alt="프로필 사진" />
         </div>
         <div>
-          <Name>semon</Name>
+          <Name>정승민</Name>
           <Description>보안 전문가를 꿈꾸고 있습니다.</Description>
         </div>
       </Profile>
